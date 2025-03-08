@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 BG_COLOR = (40, 20, 20)
 BTN_COLOR = (80, 40, 40)
 
-# Загрузка изображений кнопок
 play_img = pygame.image.load("playy.png")
 pause_img = pygame.image.load("pause.png")
 stop_img = pygame.image.load("stop.png")
@@ -25,15 +24,13 @@ stop_img = pygame.transform.scale(stop_img, (btn_size, btn_size))
 next_img = pygame.transform.scale(next_img, (btn_size, btn_size))
 prev_img = pygame.transform.scale(prev_img, (btn_size, btn_size))
 
-# Позиции кнопок
 center_x = WIDTH // 2
 center_y = HEIGHT // 2
-play_pause_rect = play_img.get_rect(center=(center_x, center_y))  # Одна кнопка Play/Pause
+play_pause_rect = play_img.get_rect(center=(center_x, center_y))
 stop_rect = stop_img.get_rect(center=(center_x - 120, center_y))
 next_rect = next_img.get_rect(center=(center_x + 80, center_y))
 prev_rect = prev_img.get_rect(center=(center_x - 80, center_y))
 
-# Музыкальные файлы
 music_files = ["Chezile_-_Beanie_78264746.mp3", "Lady_Gaga_Bruno_Mars_-_Die_With_A_Smile_78229086.mp3", "Beach_House_-_Space_Song_73372977.mp3"]
 current_track = 0
 music_stopped = False
@@ -58,15 +55,13 @@ done = False
 while not done:
     screen.fill(BG_COLOR)
     
-    # Рисуем кнопки с фоном
     for rect in [play_pause_rect, stop_rect, next_rect, prev_rect]:
         pygame.draw.circle(screen, BTN_COLOR, rect.center, btn_size // 2 + 10)
     
-    # Показываем кнопку Play или Pause в зависимости от состояния
     if music_paused:
-        screen.blit(play_img, play_pause_rect)  # Если пауза — показываем Play
+        screen.blit(play_img, play_pause_rect)  
     else:
-        screen.blit(pause_img, play_pause_rect)  # Если играет — показываем Pause
+        screen.blit(pause_img, play_pause_rect)
     
     screen.blit(stop_img, stop_rect)
     screen.blit(next_img, next_rect)
@@ -78,13 +73,13 @@ while not done:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if play_pause_rect.collidepoint(event.pos):
                 if music_stopped:
-                    play_music(current_track)  # Если музыка остановлена — играем заново
+                    play_music(current_track)  
                 elif music_paused:
-                    pygame.mixer.music.unpause()  # Если была на паузе — возобновляем
+                    pygame.mixer.music.unpause()  
                     music_paused = False
                     print("Resumed")
                 else:
-                    pygame.mixer.music.pause()  # Если играет — ставим на паузу
+                    pygame.mixer.music.pause()  
                     music_paused = True
                     print("Paused")
             elif stop_rect.collidepoint(event.pos):
